@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const DB_URL = 'mongodb://localhost:27017/rw';
+const aclInit = require('./acl-init');
+
 /**
  * 连接
  */
@@ -9,6 +11,7 @@ mongoose.connect(DB_URL);
  */
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connection open to ' + DB_URL);
+    aclInit(mongoose.connection.db);
 });
 /**
  * 连接异常

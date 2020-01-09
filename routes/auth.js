@@ -2,9 +2,8 @@ const {succeed} = require("../utils/constant") ;
 const {verify} = require("../utils/auth");
 
 exports.auth = (req,res,next)=>{
-    if(verify(req)){
-        return succeed(res,'authorize succeed',{auth: true});
-    }else{
-        return succeed(res,'authorize succeed',{auth: false});
-    }
+    verify(req,(err,decode)=>{
+        if(err) return succeed(res,'authorize succeed',{auth: false});
+        return succeed(res,'authorize succeed',{auth: true, role: decode.role});
+    });
 };

@@ -8,7 +8,10 @@ const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const authRouter = require('./routes/auth');
 const logoutRouter = require('./routes/logout');
+const announceRouter = require('./routes/announce');
 
+//middleware
+const aclMiddleware = require('./middleware/authorize');
 
 const app = express();
 
@@ -37,8 +40,15 @@ app.use((req, res, next) => {
 //routes
 app.use('/', indexRouter);
 app.post('/login',loginRouter.login);
+app.get('/announce',aclMiddleware,announceRouter.getAnnounce);
+app.post('/announce',aclMiddleware,announceRouter.postAnnounce);
 app.get('/auth',authRouter.auth);
 app.get('/logout',logoutRouter.logout);
+
+
+
+
+
 app.use(function(err, req, res, next) {
   res.writeHead(err.status || 500,err.message,
       {'Content-Type': 'application/json;charset=utf8'}

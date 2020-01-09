@@ -1,7 +1,7 @@
 const createError = require('http-errors')
-
 const PASSWORDPATTERN = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]{6,20}$/;
 exports.MAX_AGE = 1000*60*60*24*365*10;
+exports.PAGESIZE = 9;
 exports.handleError = (next,code,statusText,tip)=>{
   next(createError(code,statusText,{tip:tip}));
 };
