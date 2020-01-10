@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema(
         password: String,
         isLogin: Boolean,
         role: String,
+        createdAt: Date,
     }
 );
 
