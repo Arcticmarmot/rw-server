@@ -1,6 +1,6 @@
-const {handleError, succeed} = require("../utils/constant");
-const {SECRET} = require('../utils/auth');
-const user = require('../models/user');
+const {handleError, succeed} = require("../../utils/constant");
+const {SECRET} = require('../../utils/auth');
+const user = require('../../models/user');
 const jwt = require('jsonwebtoken');
 
 exports.login = (req,res,next)=>{

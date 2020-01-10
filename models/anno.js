@@ -11,13 +11,18 @@ annoSchema.statics.findShort = function(pageNum,cb){
     let query = this.find().select({title: 1}).sort({createdAt: -1}).skip(PAGESIZE * pageNum).limit(PAGESIZE);
     return query.exec(cb);
 };
+annoSchema.statics.findDetail = function(id,cb){
+    let query = this.findById(id);
+    return query.exec(cb);
+};
 annoSchema.statics.findPages = function(cb){
     return this.find().then(data=>{
         cb(null,Math.floor(data.length/PAGESIZE)+1);
     }).catch(err=>{
+        console.log(err);
         cb(err);
     })
-}
+};
 
 const Anno = mongoose.model('annos',annoSchema);
 

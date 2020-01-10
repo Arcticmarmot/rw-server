@@ -1,3 +1,4 @@
+const {getFirstRoute} = require("../utils/fn");
 const {verify} = require("../utils/auth");
 const {handleError} = require("../utils/constant") ;
 const aclInit = require('../init/acl-init');
@@ -16,9 +17,10 @@ module.exports = (req,res,next)=>{
 };
 
 function permissionCheck(req,acl,role,cb){
-    const resource = req.route.path;
+    const resource = getFirstRoute(req.route.path);
     const method = req.method.toLowerCase();
     acl.areAnyRolesAllowed(role,resource,method).then((permission)=>{
+        console.log(role,permission,resource)
         cb(null,permission);
     }).catch(err=>{
         cb(err);

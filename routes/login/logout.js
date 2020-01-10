@@ -1,4 +1,4 @@
-const {succeed} = require("../utils/constant") ;
+const {succeed} = require("../../utils/constant") ;
 
 exports.logout = (req,res,next)=>{
     res.clearCookie('token');

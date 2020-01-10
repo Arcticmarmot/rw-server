@@ -1,5 +1,5 @@
-const {succeed} = require("../utils/constant") ;
-const {verify} = require("../utils/auth");
+const {succeed} = require("../../utils/constant") ;
+const {verify} = require("../../utils/auth");
 
 exports.auth = (req,res,next)=>{
     verify(req,(err,decode)=>{

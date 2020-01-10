@@ -4,11 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const loginRouter = require('./routes/login');
-const authRouter = require('./routes/auth');
-const logoutRouter = require('./routes/logout');
-const announceRouter = require('./routes/announce');
+const indexRouter = require('./routes/others');
+const loginRouter = require('./routes/login/login');
+const authRouter = require('./routes/login/auth');
+const logoutRouter = require('./routes/login/logout');
+const announceRouter = require('./routes/annos/announce');
+const pageNumRouter = require('./routes/annos/page-num');
 
 //middleware
 const aclMiddleware = require('./middleware/authorize');
@@ -40,16 +41,18 @@ app.use((req, res, next) => {
 //routes
 app.use('/', indexRouter);
 app.post('/login',loginRouter.login);
-app.get('/announce',aclMiddleware,announceRouter.getAnnounce);
-app.post('/announce',aclMiddleware,announceRouter.postAnnounce);
 app.get('/auth',authRouter.auth);
 app.get('/logout',logoutRouter.logout);
+app.get('/announce',aclMiddleware,announceRouter.getAnnounce);
+app.post('/announce',aclMiddleware,announceRouter.postAnnounce);
+app.get('/announce/page_num',aclMiddleware,pageNumRouter.getPageNum);
 
 
 
 
 
 app.use(function(err, req, res, next) {
+  console.log(err);
   res.writeHead(err.status || 500,err.message,
       {'Content-Type': 'application/json;charset=utf8'}
   );
